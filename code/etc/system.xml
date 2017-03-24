@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <sections>
+        <catalog>
+        <groups>
+                <hc translate="label" module="shipping">
+                    <label><![CDATA[<div style="display:inline-block;color:#f09">HC DESIGNS</div>]]> - Filter Options</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>495</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>0</show_in_store>
+
+                    <fields>
+                        <delimeter translate="label">
+                            <label>Delimiter</label>
+                            <comment>Select which option is used for separating multiple filter option values</comment>
+                            <frontend_type>select</frontend_type>
+                            <sort_order>10</sort_order>
+                            <source_model>HC_Filters_Model_DelimiterOptions</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </delimeter>
+                    </fields>
+                    </hc>
+            </groups>
+            </catalog>
+        </sections>
+    </config>
+

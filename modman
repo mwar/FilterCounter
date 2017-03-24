@@ -1,0 +1,4 @@
+# Hc filter module
+code                   app/code/community/Hc/Filters/
+Hc_Filters.xml         app/etc/modules/Hc_Filters.xml
+translations           app/locale/*
