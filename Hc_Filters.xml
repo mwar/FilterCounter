@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Hc_Filters>
+            <active>true</active>
+            <codePool>community</codePool>
+        </Hc_Filters>
+    </modules>
+</config>
