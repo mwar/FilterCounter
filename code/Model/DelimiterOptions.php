@@ -33,7 +33,7 @@ class Hc_Filters_Model_DelimiterOptions
                 'label' => Mage::helper('filters')->__('Semicolon ( ; )')
             ],
             [
-                'value' => 3,
+                'value' => 4,
                 'label' => Mage::helper('filters')->__('Array (POST object)')
             ]
         ];
@@ -61,8 +61,23 @@ class Hc_Filters_Model_DelimiterOptions
      * @return mixed
      */
     public function getDelimiter($level) {
-        $items = $this->toArray();
-        return $items[$level];
+        switch ($level) {
+            case 0:
+                return "_";
+                break;
+            case 1:
+                return "|";
+                break;
+            case 2:
+                return ",";
+                break;
+            case 3:
+                return ";";
+                break;
+            default:
+                return $this->getDelimiter(0);
+                break;
+            }
     }
 
     /**
@@ -72,15 +87,13 @@ class Hc_Filters_Model_DelimiterOptions
      */
     public function arrayOfValues($value)
     {
-        $delimeterNr = (Mage::getStoreConfig('catalog/hc/delimeter') > 3)? 0: Mage::getStoreConfig('catalog/hc/delimeter');
-
-        if ($delimeterNr == 3) {
+        if (Mage::getStoreConfig('catalog/hc/delimeter') == 4) {
             if (!is_array($value)) {
                 return [];
             }
             return (array) $value;
         }
 
-        return explode($this->getDelimiter($delimeterNr), $value);
+        return explode($this->getDelimiter(Mage::getStoreConfig('catalog/hc/delimeter')), $value);
     }
 }
