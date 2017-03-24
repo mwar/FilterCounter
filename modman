@@ -1,4 +1,4 @@
 # Hc filter module
 code                                        app/code/community/Hc/Filters/
 Hc_Filters.xml                              app/etc/modules/Hc_Filters.xml
-translations/nl_NL/Hc_Filters.xml           app/locale/nl_NL/Hc_Filters.xml
+translations/nl_NL/Hc_Filters.csv           app/locale/nl_NL/Hc_Filters.csv
