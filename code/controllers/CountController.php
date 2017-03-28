@@ -28,7 +28,7 @@ class Hc_Filters_CountController extends Mage_Core_Controller_Front_Action
         }
 
         $collection = $this->getCollectionModel()
-            ->loadProductCollection(19/*$this->getRequest()->getParam('category')*/)
+            ->loadProductCollection($this->getRequest()->getParam('category'))
             ->getProductCollection();
 
         $this->addFiltersToCollection($collection);
@@ -57,27 +57,22 @@ class Hc_Filters_CountController extends Mage_Core_Controller_Front_Action
             $filters = [];
             $values = Mage::getModel('filters/delimiterOptions')->arrayOfValues($content);
 
-            /** Price Can be a range, but also only a maximum or minimum */
-            if ($attribute == 'price') {
+            /** Filter by Range, Min, max and Equals */
+            foreach ($values as $value) {
+                if (substr($value, 0, 1) == '-') {
+                    $filters[] = ['lteq' => substr($value, 0, 1)];
+                } elseif (substr($value, -1) == '-') {
+                    $filters[] = ['gteq' => substr($value, -1)];
+                } elseif (strpos($value, "-") !== false) {
+                    $prices = explode("-", $value, 2);
+                    $filters[] = [
+                        'from' => $prices[0],
+                        'to' => $prices[1],
+                    ];
+                } else {
+                    $filters[] = ['eq' => $value];
+                }
 
-                foreach($values as $value):
-                    if (substr($value, 0, 1) == '-') {
-                        $filters[] = ['lteq' => substr($value, 0, 1)];
-                    } elseif(substr($value, -1) == '-') {
-                        $filters[] = ['gteq' => substr($value, -1)];
-                    } elseif (strpos($value, "-") !== false) {
-                        $prices = explode("-", $value, 2);
-                        $filters[] = [
-                            'from'  => $prices[0],
-                            'to'  => $prices[1],
-                        ];
-                    } else {
-                        $filters[] = ['eq' => $value];
-                    }
-
-                endforeach;
-            } else {
-                $filters['eq'] = $values;
             }
             /* for return message */
             $this->usedFilters($attribute, $filters);
